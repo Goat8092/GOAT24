@@ -1,19 +1,35 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+  public static final class SwerveConstants{
+    public static final double kWheelDiameter = Units.inchesToMeters(1.5);
+    public static final double kDriveMotorGearRatio = 1/6.75; //FIXME: this is for MK4 L2 gear ratio
+    public static final double kTurnMotorGearRatio = 1/12.8;
+    public static final double kWheelCircumference = Math.PI * kWheelDiameter * kDriveMotorGearRatio;
+    public static final double kTurnEncoderRadian = 2 * Math.PI * kTurnMotorGearRatio;
+    public static final double kPTurn = 0.5; // FIXME: tune this value
+    
   }
+
+  public static final class DriveConstants{
+    public static final double kTeleOpDriveSpeed = 0.8; 
+    public static final double kJoystickDeadZone = 0.08; 
+    public static final double kTeleOpTurnSpeed = 0.8; 
+    public static final double kMaxDriveSpeed = Units.inchesToMeters(14.5); //meter/sec FIXME: change this value
+    public static final double kMaxTurnSpeed = Math.PI * 2; //rad/sec FIXME: change this value
+    public static final double kTrackWidth = 60; //FIXME: measure this value
+    public static final double kWheelBase = 60; //FIXME: measure this value
+    public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+      new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+      new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+      new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+      new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
+    );
+
+  }
+
 }
